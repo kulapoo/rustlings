@@ -27,7 +27,15 @@ mod my_module {
     use super::Command;
 
     // TODO: Complete the function as described above.
-    // pub fn transformer(input: ???) -> ??? { ??? }
+    pub fn transformer(input: Vec<(String, Command)>) -> Vec<String> {
+        input.into_iter()
+            .map(|(raw, cmd)| match cmd {
+                Command::Uppercase => raw.to_uppercase(),
+                Command::Trim => raw.trim().to_string(),
+                Command::Append(repeat_count) => format!("{}{}", raw, "bar".repeat(repeat_count))
+            })
+            .collect()
+    }
 }
 
 fn main() {
@@ -39,6 +47,7 @@ mod tests {
     // TODO: What do we need to import to have `transformer` in scope?
     // use ???;
     use super::Command;
+    use super::my_module;
 
     #[test]
     fn it_works() {
@@ -48,7 +57,7 @@ mod tests {
             ("foo".to_string(), Command::Append(1)),
             ("bar".to_string(), Command::Append(5)),
         ];
-        let output = transformer(input);
+        let output = my_module::transformer(input);
 
         assert_eq!(
             output,
