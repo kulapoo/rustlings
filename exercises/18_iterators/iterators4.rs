@@ -10,10 +10,19 @@ fn factorial(num: u64) -> u64 {
     // - additional variables
     // For an extra challenge, don't use:
     // - recursion
+
+    (1..=num).rev().fold(num.max(1), |acc, n| {
+        acc * match n - 1 {
+            ..=0 => 1,
+            n => n
+        }
+    })
 }
 
 fn main() {
     // You can optionally experiment here.
+
+    println!("tae {}", factorial(5))
 }
 
 #[cfg(test)]
